@@ -13,6 +13,7 @@ function team_list_display ( $atts ) {
 	$args = array(
 	'post_type' => 'team',
 	'posts_per_page' => -1,
+	'order' => 'ASC',
 	'orderby' => 'menu_order',
 );
 $the_query = new WP_Query( $args );
