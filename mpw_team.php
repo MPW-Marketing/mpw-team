@@ -24,12 +24,15 @@ if ( $the_query->have_posts() ) {
 		$the_query->the_post();
 		global $post;
 		$data_id = $post->ID;
-		$thumb_id = get_post_thumbnail_id();
-		$thumb_id = get_post_meta($post->ID, 'brand_main_image', true);
+		$hover_image_id = get_post_meta($post->ID, 'team_hover_image', true);
+		$hover_image_url = wp_get_attachment_url($hover_image_id);
+		$thumb_id = get_post_meta($post->ID, 'team_main_image', true);
+		if ($thumb_id == '') {$thumb_id = get_post_thumbnail_id();}
 		$thumb_url = wp_get_attachment_url($thumb_id);
 		$team_title = get_the_title();
-		$comp_title = str_replace(" ","",$team_title);
-		$cont .= '<div class="team-member col-xs-12 col-sm-4"><a data-id="'.$data_id.'" id="'.$comp_title.'-link" class="team-member-link" title="'.$comp_title.'" href="'.get_the_permalink().'"><img class="team-member-img" src="'.$thumb_url.'" /></a><h1 class="entry-title">'.$team_title.'</h1></div>';
+		$comp_title = str_replace(" ","",$team_title);		
+		if ($hover_image_url == ''){$hover_image_url = $thumb_url;}
+		$cont .= '<div class="team-member col-xs-12 col-sm-4"><a data-id="'.$data_id.'" id="'.$comp_title.'-link" class="team-member-link" title="'.$comp_title.'" href="'.get_the_permalink().'"><img class="team-member-img" src="'.$thumb_url.'" /></a><h2 class="entry-title">'.$team_title.'</h2></div>';
 	}
 	$cont .= '</div>
 		<div class="ajax-loading-img"><img class= "loading-icon" src="'.get_stylesheet_directory_uri() . '/images/ajax-loader.gif" /></div>
